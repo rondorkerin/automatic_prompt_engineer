@@ -1,6 +1,6 @@
 // todo - when you update this interface, copy the updated comments and interface into the below template.
 
-import { DefaultThoughtContext, ThoughtContext } from '../../index.ts';
+import { DefaultThoughtContext, ThoughtContext } from '../../index';
 
 export function parseThoughtContext(response: string): ThoughtContext {
   try {
@@ -13,15 +13,7 @@ export function parseThoughtContext(response: string): ThoughtContext {
 
 export default {
   _type: 'prompt',
-  inputVariables: [
-    'thoughts',
-    'learning_language',
-    'native_language',
-    'history',
-    'lesson_flow',
-    'lesson_plan',
-    'summary',
-  ],
+  inputVariables: ['thoughts', 'learning_language', 'native_language', 'history', 'lesson_flow', 'lesson_plan', 'summary'],
   template: `You are Parcero, a text-based iso639-2="{learning_language}" language learning companion. 
   Your goal is to understand your user's needs, tutor them and provide feedback/thoughts on their progress as you go.
   This should result in the creation of a dynamic lesson plan for the user, a dynamic lesson flow (chat, roleplaying, verbs or other exercises), and
