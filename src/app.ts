@@ -84,7 +84,7 @@ export default class App {
   }
 
   static async initDB() {
-    await mongoose.connect(`${MONGO_URI}/${DATABASE}`);
+    await mongoose.connect(MONGODB_URI || `${MONGO_URI}/${DATABASE}`);
   }
 
   static async closeDB() {

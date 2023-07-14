@@ -14,6 +14,7 @@ const checkEnv = (envVar: string, defaultValue?: string) => {
 
 export const PORT: number = parseInt(checkEnv('PORT'), 10);
 export const MONGO_URI: string = checkEnv('MONGO_URI');
+export const MONGODB_URI: string = checkEnv('MONGODB_URI');
 export const DATABASE: string = checkEnv('DATABASE');
 export const CORS_ORIGINS = JSON.parse(checkEnv('CORS_ORIGINS'));
 export const CREDENTIALS = checkEnv('CREDENTIALS') === 'true';
