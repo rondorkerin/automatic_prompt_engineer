@@ -1,9 +1,10 @@
 import { Body, HttpCode, JsonController, Post, UseBefore } from 'routing-controllers';
 import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import slugify from 'slugify';
 
 import { validationMiddleware } from '@middlewares/validation.middleware';
 import { IUser } from '@models/users.model';
-import { AuthService, TokenService, UserService } from '@services/v1';
+import { AuthService, TokenService, UserService, OrganizationService } from '@services/v1';
 
 import ForgotPasswordDto from './dtos/forgotPassword.dto';
 import LoginDto, { LoginResponseSchema } from './dtos/login.dto';
@@ -14,6 +15,7 @@ import ResetPasswordDto from './dtos/resetPassword.dto';
 
 @JsonController('/v1/auth', { transformResponse: false })
 export class AuthController {
+  private readonly organizationService = new OrganizationService();
   private readonly tokenService = new TokenService();
   private readonly userService = new UserService();
   private readonly authService = new AuthService();
@@ -25,9 +27,16 @@ export class AuthController {
   @UseBefore(validationMiddleware(RegisterDto, 'body'))
   async register(@Body() userData: RegisterDto) {
     const user = await this.userService.createUser(userData);
+
+    const org = await this.organizationService.createOrganization({
+      ownerUserId: user.id,
+      organizationName: userData.organizationName,
+      organizationSlug: slugify(userData.organizationName),
+    });
+
     const tokens = await this.tokenService.generateAuthTokens(user);
 
-    return { user, tokens };
+    return { user, tokens, org };
   }
 
   @Post('/login')

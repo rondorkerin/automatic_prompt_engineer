@@ -4,7 +4,7 @@ import { CORS_ORIGINS, CREDENTIALS, MONGO_URI, DATABASE, isProduction, PORT, SEN
 
 import * as Sentry from '@sentry/node';
 import bodyParser from 'body-parser';
-import { metaprompter } from './metaprompt';
+// import { metaprompter } from './metaprompt';
 
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -37,7 +37,7 @@ export default class App {
 
     this.initHandlingErrors();
 
-    metaprompter();
+    // metaprompter();
   }
 
   private initSentry() {
